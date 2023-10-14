@@ -3,18 +3,31 @@ import { useState } from "react";
 
 function App() {
   const [invAmount, setInvAmount] = useState(0);
+  const [servCotation, setServCotation] = useState(0);
 
   console.log("invAmount", invAmount);
+  console.log("servCotation", servCotation);
 
   return (
     <div className="App">
       <header className="App-header">
         <h2 className="title">Bill Calculator</h2>
-        <Invoice onSetAmount={setInvAmount} />
-        <Service>How did you like the service </Service>
+        <Invoice amount={invAmount} onSetAmount={setInvAmount} />
+        <Service cotation={servCotation} onSetCotation={setServCotation}>
+          How did you like the service{" "}
+        </Service>
         {/* <Service>How did your friend like the service </Service> */}
-        <Biller>You pay $92 ($80 + $12 tip)</Biller>
-        <Reset />
+        <Biller invoice={invAmount} service={servCotation}>
+          {`You pay $${
+            Number(invAmount) + Number(servCotation)
+          } ($${invAmount} + $${servCotation} tip)`}
+        </Biller>
+        <Reset
+          amountInv={invAmount}
+          resetAmountInv={setInvAmount}
+          cotationServ={servCotation}
+          resetCotationServ={setServCotation}
+        />
       </header>
     </div>
   );
@@ -23,11 +36,7 @@ function App() {
 export default App;
 
 // Invoice
-function Invoice() {
-  const [amount, setAmount] = useState(0);
-
-  console.log("amount :>> ", amount);
-
+function Invoice({ amount, onSetAmount }) {
   return (
     <div>
       <label>How much was the bill? </label>
@@ -36,17 +45,14 @@ function Invoice() {
         id="amount"
         className="text-field"
         value={amount}
-        onChange={(e) => setAmount(e.target.value)}
+        onChange={(e) => onSetAmount(e.target.value)}
       />
     </div>
   );
 }
 
 // Service
-function Service({ children }) {
-  const [cotation, setCotation] = useState(0);
-
-  console.log("cotation :>> ", cotation);
+function Service({ cotation, onSetCotation, children }) {
   return (
     <div className="spacer">
       <label>{children}</label>
@@ -55,7 +61,7 @@ function Service({ children }) {
         id="service"
         className="text-field"
         value={cotation}
-        onChange={(e) => setCotation(Number(e.target.value))}
+        onChange={(e) => onSetCotation(Number(e.target.value))}
       >
         <option value="0">Dissatisfied (0%)</option>
         <option value="5">It was okay (5%)</option>
@@ -67,7 +73,7 @@ function Service({ children }) {
 }
 
 // Biller
-function Biller({ children }) {
+function Biller({ invoice, service, children }) {
   return (
     <div>
       <p className="biller">{children}</p>
@@ -76,10 +82,16 @@ function Biller({ children }) {
 }
 
 // Reset
-function Reset() {
+function Reset({ resetAmountInv, resetCotationServ }) {
+  function handleReset() {
+    resetAmountInv(0);
+    resetCotationServ(0);
+  }
   return (
     <div>
-      <button className="reset">Reset</button>
+      <button className="reset" onClick={() => handleReset()}>
+        Reset
+      </button>
     </div>
   );
 }
