@@ -4,9 +4,11 @@ import { useState } from "react";
 function App() {
   const [invAmount, setInvAmount] = useState(0);
   const [servCotation, setServCotation] = useState(0);
+  const [serv2Cotation, setServ2Cotation] = useState(0);
 
-  console.log("invAmount", invAmount);
-  console.log("servCotation", servCotation);
+  // function handleMediumTip() {
+  //   return Number(10 + 15 / 2);
+  // }
 
   return (
     <div className="App">
@@ -16,17 +18,20 @@ function App() {
         <Service cotation={servCotation} onSetCotation={setServCotation}>
           How did you like the service{" "}
         </Service>
-        {/* <Service>How did your friend like the service </Service> */}
+        <Service cotation={serv2Cotation} onSetCotation={setServ2Cotation}>
+          How did your friend like the service{" "}
+        </Service>
         <Biller invoice={invAmount} service={servCotation}>
           {`You pay $${
-            Number(invAmount) + Number(servCotation)
-          } ($${invAmount} + $${servCotation} tip)`}
+            Number(invAmount) + Number(servCotation + serv2Cotation) / 2
+          } ($${invAmount} + $${Number(servCotation + serv2Cotation) / 2} tip)`}
         </Biller>
         <Reset
           amountInv={invAmount}
           resetAmountInv={setInvAmount}
           cotationServ={servCotation}
           resetCotationServ={setServCotation}
+          resetCotationServ2={setServ2Cotation}
         />
       </header>
     </div>
@@ -82,10 +87,11 @@ function Biller({ invoice, service, children }) {
 }
 
 // Reset
-function Reset({ resetAmountInv, resetCotationServ }) {
+function Reset({ resetAmountInv, resetCotationServ, resetCotationServ2 }) {
   function handleReset() {
     resetAmountInv(0);
     resetCotationServ(0);
+    resetCotationServ2(0);
   }
   return (
     <div>
