@@ -6,10 +6,6 @@ function App() {
   const [servCotation, setServCotation] = useState(0);
   const [serv2Cotation, setServ2Cotation] = useState(0);
 
-  // function handleMediumTip() {
-  //   return Number(10 + 15 / 2);
-  // }
-
   return (
     <div className="App">
       <header className="App-header">
@@ -21,11 +17,15 @@ function App() {
         <Service cotation={serv2Cotation} onSetCotation={setServ2Cotation}>
           How did your friend like the service{" "}
         </Service>
-        <Biller invoice={invAmount} service={servCotation}>
-          {`You pay $${
-            Number(invAmount) + Number(servCotation + serv2Cotation) / 2
-          } ($${invAmount} + $${Number(servCotation + serv2Cotation) / 2} tip)`}
-        </Biller>
+        {invAmount > 0 && (
+          <Biller invoice={invAmount} service={servCotation}>
+            {`You pay $${
+              Number(invAmount) + Number(servCotation + serv2Cotation) / 2
+            } ($${invAmount} + $${
+              Number(servCotation + serv2Cotation) / 2
+            } tip)`}
+          </Biller>
+        )}
         <Reset
           amountInv={invAmount}
           resetAmountInv={setInvAmount}
@@ -78,7 +78,7 @@ function Service({ cotation, onSetCotation, children }) {
 }
 
 // Biller
-function Biller({ invoice, service, children }) {
+function Biller({ children }) {
   return (
     <div>
       <p className="biller">{children}</p>
