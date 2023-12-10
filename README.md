@@ -6,6 +6,10 @@ React Challenge to calculate the build associated with the service star rank
 
 The project is public and unlicensed
 
+## Preview
+
+[Bill Calculator](https://bvenceslas.github.io/challenge-bill-calculator)
+
 ## Built With
 
 - React using **create-react-app**
