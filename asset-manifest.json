@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/challenge-bill-calculator/static/css/main.165cfe59.css",
+    "main.js": "/challenge-bill-calculator/static/js/main.9e505488.js",
+    "index.html": "/challenge-bill-calculator/index.html",
+    "main.165cfe59.css.map": "/challenge-bill-calculator/static/css/main.165cfe59.css.map",
+    "main.9e505488.js.map": "/challenge-bill-calculator/static/js/main.9e505488.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.165cfe59.css",
+    "static/js/main.9e505488.js"
+  ]
+}
